@@ -68,7 +68,7 @@ public class Main extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-        try {
+       try {
             DatabaseConnection.getInstance().connectToDatabase();
             Service.getInstance(txt).startServer();
         } catch (SQLException e) {

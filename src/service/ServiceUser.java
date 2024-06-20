@@ -19,7 +19,7 @@ public class ServiceUser {
     public ServiceUser() {
         this.con = DatabaseConnection.getInstance().getConnection();
     }
-    
+
     public Model_Message register(Model_Register data) {
         //  Check user exit
         Model_Message message = new Model_Message();
@@ -27,7 +27,7 @@ public class ServiceUser {
             PreparedStatement p = con.prepareStatement(CHECK_USER);
             p.setString(1, data.getUserName());
             ResultSet r = p.executeQuery();
-            if (r.first()) {
+            if (r.next()) {
                 message.setAction(false);
                 message.setMessage("User Already Exit");
             } else {
@@ -51,10 +51,10 @@ public class ServiceUser {
         }
         return message;
     }
-    
+
     //  SQL
-    private final String INSERT_USER = "insert into user (UserName, `Password`) values (?,?)";
-    private final String CHECK_USER = "select UserID from user where UserName =? limit 1";
+    private final String INSERT_USER = "insert into user1 (UserName, `Password`) values (?,?)";
+    private final String CHECK_USER = "select UserID from user1 where UserName =? limit 1";
     //  Instance
     private final Connection con;
 }
