@@ -12,6 +12,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import model.Model_Client;
 import model.Model_Login;
 import model.Model_User_Account;
 /**
@@ -107,11 +108,21 @@ public class ServiceUser {
             String userName = r.getString(2);
             String gender = r.getString(3);
             String image = r.getString(4);
-            list.add(new Model_User_Account(userID, userName, gender, image, true));
+            list.add(new Model_User_Account(userID, userName, gender, image, checkUserStatus(userID)));
         }
         r.close();
         p.close();
         return list;
+    }
+    
+    private boolean checkUserStatus(int userID) {
+        List<Model_Client> clients = Service.getInstance(null).getListClient();
+        for (Model_Client c : clients) {
+            if (c.getUser().getUserID() == userID) {
+                return true;
+            }
+        }
+        return false;
     }
 
     //  SQL
